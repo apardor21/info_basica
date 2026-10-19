@@ -1,0 +1,2112 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODE CHALLENGE | Informática Básica</title>
+
+<style>
+:root {
+    --bg: #080d1b;
+    --panel: #111a30;
+    --panel2: #182441;
+    --purple: #9b5cff;
+    --cyan: #35e8ff;
+    --green: #35e69a;
+    --red: #ff5470;
+    --text: #f4f7ff;
+    --muted: #a8b4d0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%, #25205b 0, transparent 30%),
+        radial-gradient(circle at 90% 80%, #102d4d 0, transparent 30%),
+        var(--bg);
+}
+
+header {
+    padding: 30px 16px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: white;
+    text-shadow: 0 0 12px var(--purple), 0 0 30px #5d39ff;
+}
+
+header h1 span { color: var(--cyan); }
+
+header p {
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-top: 12px;
+}
+
+.container {
+    width: min(1200px, 94%);
+    margin: auto;
+    padding-bottom: 40px;
+}
+
+.panel {
+    background: linear-gradient(145deg, #141e37f2, #0e172cf5);
+    border: 1px solid #35436a;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 10px 35px #0005;
+}
+
+h2 {
+    margin-top: 0;
+    color: var(--cyan);
+    font-size: 1.35rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    padding: 18px;
+    background: var(--panel);
+    border: 1px solid #344263;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--cyan);
+}
+
+.stat span {
+    display: block;
+    margin-top: 5px;
+    font-size: .82rem;
+    color: var(--muted);
+}
+
+.roulette {
+    background: #080f20;
+    border: 2px solid var(--purple);
+    border-radius: 18px;
+    padding: 28px 16px;
+    text-align: center;
+    min-height: 155px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 30px #9b5cff15, 0 0 22px #9b5cff15;
+}
+
+.roulette-label {
+    font-size: .8rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+#selectedName {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+#rouletteMessage {
+    margin-top: 10px;
+    color: var(--cyan);
+    min-height: 20px;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+    padding: 13px 18px;
+    color: white;
+    font-weight: 800;
+    font-size: .94rem;
+    transition: transform .15s, filter .15s, opacity .15s;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #7b42ff, #a15cff);
+    box-shadow: 0 0 18px #8b55ff35;
+}
+
+.btn-cyan {
+    background: linear-gradient(90deg, #087eaa, #20c7e8);
+    color: #04131d;
+}
+
+.btn-green { background: #16895f; }
+.btn-red { background: #b93450; }
+.btn-gray { background: #34415e; }
+.btn-gold { background: #e3ad36; color: #211600; }
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.question-box {
+    background: #0b1327;
+    border: 1px solid #334366;
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.question-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tag {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #263452;
+    color: var(--cyan);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+#questionText {
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+    line-height: 1.5;
+    font-weight: 750;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.option {
+    padding: 15px;
+    border: 1px solid #3a4a6d;
+    background: #17223c;
+    border-radius: 12px;
+    line-height: 1.4;
+}
+
+.option.correct {
+    border-color: var(--green);
+    background: #124734;
+}
+
+.option.wrong {
+    border-color: var(--red);
+    background: #4a1b2b;
+}
+
+#answerBox {
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #182541;
+    line-height: 1.6;
+    display: none;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid #354263;
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+    font-size: .9rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #2a3755;
+}
+
+th {
+    color: var(--cyan);
+    background: #1b2946;
+    position: sticky;
+    top: 0;
+}
+
+td { color: #e2e8f7; }
+tbody tr:hover { background: #ffffff08; }
+
+.progress {
+    height: 8px;
+    background: #293653;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.progress div {
+    height: 100%;
+    background: var(--green);
+}
+
+.note {
+    color: var(--muted);
+    font-size: .88rem;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #8290b0;
+    font-size: .8rem;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 650px) {
+    .panel { padding: 17px; }
+    .options { grid-template-columns: 1fr; }
+    .actions button { flex: 1 1 100%; }
+}
+</style>
+</head>
+
+<body>
+<header>
+    <h1>CODE <span>CHALLENGE</span></h1>
+    <p>INFORMÁTICA BÁSICA · MODO INDIVIDUAL</p>
+</header>
+
+<main class="container">
+
+    <section class="stats">
+        <div class="stat">
+            <strong id="totalStudents">18</strong>
+            <span>ESTUDIANTES</span>
+        </div>
+        <div class="stat">
+            <strong id="questionsRemaining">80</strong>
+            <span>PREGUNTAS DISPONIBLES</span>
+        </div>
+        <div class="stat">
+            <strong id="questionsAsked">0</strong>
+            <span>PREGUNTAS REALIZADAS</span>
+        </div>
+        <div class="stat">
+            <strong id="totalPoints">0</strong>
+            <span>PUNTOS ACUMULADOS</span>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>🎯 Ruleta de participantes</h2>
+        <p class="subtitle">
+            Gira la ruleta para seleccionar al estudiante que responderá.
+            Cada pregunta se utiliza una sola vez por partida.
+        </p>
+
+        <div class="roulette">
+            <div class="roulette-label">PARTICIPANTE SELECCIONADO</div>
+            <div id="selectedName">¿QUIÉN JUGARÁ?</div>
+            <div id="rouletteMessage">¡Prepárate para el desafío!</div>
+        </div>
+
+        <div class="actions">
+            <button id="spinButton" class="btn-primary" onclick="spinRoulette()">
+                🎲 GIRAR RULETA
+            </button>
+            <button class="btn-gray" onclick="showReport()">
+                📊 VER RESULTADOS
+            </button>
+        </div>
+    </section>
+
+    <section class="panel" id="questionPanel">
+        <h2>💻 Pregunta del desafío</h2>
+
+        <div id="emptyQuestion" class="subtitle">
+            Gira la ruleta para seleccionar un estudiante y obtener una pregunta.
+        </div>
+
+        <div id="questionContent" class="hidden">
+            <div class="question-box">
+                <div class="question-meta">
+                    <span class="tag" id="categoryTag"></span>
+                    <span class="tag" id="questionNumber"></span>
+                    <span class="tag">10 PUNTOS</span>
+                </div>
+
+                <div id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+
+                <div id="answerBox"></div>
+
+                <div class="actions" id="gradingActions">
+                    <button class="btn-green" onclick="gradeAnswer('correcta')">
+                        ✅ RESPONDIÓ CORRECTAMENTE (+10)
+                    </button>
+                    <button class="btn-red" onclick="gradeAnswer('incorrecta')">
+                        ❌ RESPUESTA INCORRECTA (0)
+                    </button>
+                    <button class="btn-gray" onclick="gradeAnswer('no respondio')">
+                        ⏱️ NO RESPONDIÓ (0)
+                    </button>
+                </div>
+
+                <div class="actions">
+                    <button class="btn-cyan" onclick="toggleAnswer()">
+                        💡 MOSTRAR / OCULTAR RESPUESTA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="reportPanel">
+        <h2>🏆 Tabla de resultados</h2>
+        <p class="note">
+            El reporte muestra cuántas preguntas ha recibido cada estudiante,
+            sus aciertos, errores, preguntas sin responder, puntaje y porcentaje
+            de acierto. Los participantes sin preguntas también aparecen.
+        </p>
+
+        <div class="actions">
+            <button class="btn-cyan" onclick="exportSummary()">
+                📥 EXPORTAR RESUMEN PARA EXCEL
+            </button>
+            <button class="btn-primary" onclick="exportDetails()">
+                📥 EXPORTAR DETALLE DE PREGUNTAS
+            </button>
+            <button class="btn-gold" onclick="exportBoth()">
+                📦 DESCARGAR AMBOS REPORTES
+            </button>
+        </div>
+
+        <div class="table-wrap" style="margin-top:18px">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Estudiante</th>
+                        <th>Preguntas</th>
+                        <th>Aciertos</th>
+                        <th>Incorrectas</th>
+                        <th>No respondió</th>
+                        <th>Puntaje</th>
+                        <th>% acierto</th>
+                    </tr>
+                </thead>
+                <tbody id="summaryBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>📋 Historial de la partida</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Estudiante</th>
+                        <th>Categoría</th>
+                        <th>Pregunta</th>
+                        <th>Resultado</th>
+                        <th>Puntos</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <tr><td colspan="6">Todavía no se han realizado preguntas.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <button class="btn-red" onclick="resetGame()">
+                🔄 REINICIAR PARTIDA
+            </button>
+        </div>
+        <p class="note">
+            Importante: los resultados se mantienen en esta página mientras
+            permanezca abierta. Exporta los reportes antes de cerrar o reiniciar.
+        </p>
+    </section>
+</main>
+
+<footer>CODE CHALLENGE · INFORMÁTICA BÁSICA · MODO INDIVIDUAL</footer>
+
+<script>
+"use strict";
+
+// ======================================================
+// 1. LISTA DE ESTUDIANTES
+// ======================================================
+
+const students = [
+    "GENZEL LOPEZ VALENTINA",
+    "GUERRERO MENDOZA JHONATAN SMITH",
+    "HARNISCH VASQUEZ SHAILOT SOFIA",
+    "HERNANDEZ HERNANDEZ SHERLY YIRETH",
+    "ISAZA ACERO JULIÁN ANDRÉS",
+    "LEMUS PERTUZ SHAILA VANESSA",
+    "MARIMON BERNAL ESTEBAN DAVID JOSÉ",
+    "MARRUGO CASARRUBIA ANTONIO JUNIOR",
+    "MARRUGO MUÑOZ MERELLYN MELISSA",
+    "MARTINEZ ZARATE WALNER DE JESUS",
+    "MARTÍNEZ ESPITALETA JOSELIN VANESSA",
+    "MONTES VERGARA VICTOR MANUEL",
+    "MORALES DIAZ ELIEZER JOSE",
+    "MORENO CASADIEGO ANGIE JULIANA",
+    "MURILLO SOBRADO SANTIAGO",
+    "ORTIZ ESPINOSA GERMAN DAVID",
+    "OSPINA GARCIA IVAN DARIO",
+    "ROCHA CASTELLON BREINER STIVEN"
+];
+
+// ======================================================
+// 2. BANCO DE PREGUNTAS
+// Agrega más preguntas siguiendo el mismo formato.
+// ======================================================
+
+const questionBank = [
+
+{
+    category: "Partes del computador",
+    question: "¿Cuál es la función principal de la CPU?",
+    options: [
+        "Procesar instrucciones y datos",
+        "Imprimir documentos",
+        "Proyectar imágenes",
+        "Reproducir únicamente sonido"
+    ],
+    answer: 0,
+    explanation: "La CPU ejecuta instrucciones y coordina gran parte del procesamiento del computador."
+},
+{
+    category: "Partes del computador",
+    question: "¿Qué componente se utiliza para almacenar archivos de forma permanente?",
+    options: ["Memoria RAM", "SSD o disco duro", "Procesador", "Ventilador"],
+    answer: 1,
+    explanation: "El SSD o disco duro conserva los archivos incluso cuando el equipo se apaga."
+},
+{
+    category: "Partes del computador",
+    question: "¿Cuál de estos dispositivos es de entrada?",
+    options: ["Monitor", "Parlante", "Teclado", "Proyector"],
+    answer: 2,
+    explanation: "El teclado permite ingresar texto y comandos al computador."
+},
+{
+    category: "Partes del computador",
+    question: "¿Cuál de estos dispositivos es de salida?",
+    options: ["Ratón", "Escáner", "Micrófono", "Monitor"],
+    answer: 3,
+    explanation: "El monitor presenta información visual al usuario."
+},
+{
+    category: "Partes del computador",
+    question: "¿Para qué sirve la memoria RAM?",
+    options: [
+        "Guardar permanentemente todos los archivos",
+        "Mantener temporalmente datos de programas en uso",
+        "Conectar el equipo a la impresora",
+        "Proteger físicamente el procesador"
+    ],
+    answer: 1,
+    explanation: "La RAM es memoria temporal que utilizan el sistema y las aplicaciones mientras funcionan."
+},
+{
+    category: "Partes del computador",
+    question: "¿Qué dispositivo permite mover el puntero en la pantalla?",
+    options: ["Ratón o mouse", "Impresora", "Parlante", "Escáner"],
+    answer: 0,
+    explanation: "El ratón permite controlar el puntero y seleccionar elementos."
+},
+{
+    category: "Partes del computador",
+    question: "¿Cuál es una función de la placa base?",
+    options: [
+        "Mostrar páginas web",
+        "Imprimir fotografías",
+        "Conectar y permitir la comunicación entre componentes",
+        "Crear presentaciones automáticamente"
+    ],
+    answer: 2,
+    explanation: "La placa base conecta los componentes principales del equipo."
+},
+{
+    category: "Partes del computador",
+    question: "¿Qué dispositivo se utiliza para digitalizar documentos en papel?",
+    options: ["Router", "Escáner", "Teclado", "Memoria RAM"],
+    answer: 1,
+    explanation: "El escáner convierte documentos físicos en archivos digitales."
+},
+{
+    category: "Partes del computador",
+    question: "¿Qué significa que un computador sea portátil?",
+    options: [
+        "Que solo funciona sin internet",
+        "Que no necesita sistema operativo",
+        "Que no puede guardar archivos",
+        "Que está diseñado para transportarse fácilmente"
+    ],
+    answer: 3,
+    explanation: "Un portátil integra sus componentes en un equipo fácil de transportar."
+},
+{
+    category: "Partes del computador",
+    question: "¿Cuál es la función de un sistema operativo?",
+    options: [
+        "Administrar los recursos del equipo y ejecutar aplicaciones",
+        "Servir únicamente para imprimir",
+        "Reemplazar todos los componentes físicos",
+        "Aumentar automáticamente la velocidad de internet"
+    ],
+    answer: 0,
+    explanation: "El sistema operativo administra el hardware, los archivos y la ejecución de programas."
+},
+
+{
+    category: "Google Workspace",
+    question: "¿Para qué sirve Google Drive?",
+    options: [
+        "Editar únicamente videos",
+        "Almacenar y organizar archivos en la nube",
+        "Reemplazar el teclado",
+        "Eliminar todos los correos"
+    ],
+    answer: 1,
+    explanation: "Google Drive permite almacenar, organizar y compartir archivos."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué herramienta de Google se utiliza para crear documentos de texto?",
+    options: ["Google Maps", "Google Calendar", "Documentos de Google", "Google Fotos"],
+    answer: 2,
+    explanation: "Documentos de Google permite crear y editar textos colaborativamente."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué herramienta permite crear hojas de cálculo en Google?",
+    options: ["Google Sheets", "Google Meet", "Google Sites", "Google Keep"],
+    answer: 0,
+    explanation: "Google Sheets permite organizar datos, usar fórmulas y elaborar gráficos."
+},
+{
+    category: "Google Workspace",
+    question: "¿Cuál es el propósito principal de Google Meet?",
+    options: ["Crear bases de datos", "Diseñar carteles", "Comprimir archivos", "Realizar videollamadas"],
+    answer: 3,
+    explanation: "Google Meet es una herramienta de videoconferencias."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué herramienta se utiliza principalmente para gestionar el correo electrónico de Google?",
+    options: ["Google Drive", "Gmail", "Google Slides", "Google Forms"],
+    answer: 1,
+    explanation: "Gmail permite enviar, recibir y organizar correos electrónicos."
+},
+{
+    category: "Google Workspace",
+    question: "¿Para qué sirve Google Forms?",
+    options: [
+        "Reparar computadores",
+        "Instalar impresoras",
+        "Crear formularios, encuestas y cuestionarios",
+        "Editar el sistema operativo"
+    ],
+    answer: 2,
+    explanation: "Google Forms facilita la recopilación de respuestas mediante formularios."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué ventaja tiene compartir un documento con permisos de edición?",
+    options: [
+        "Permite que personas autorizadas modifiquen el documento",
+        "Hace que el archivo sea invisible",
+        "Elimina automáticamente el historial",
+        "Impide que el propietario lo abra"
+    ],
+    answer: 0,
+    explanation: "Los permisos de edición permiten colaborar en el mismo archivo."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué herramienta de Google se utiliza para crear presentaciones?",
+    options: ["Google Calendar", "Google Contacts", "Google Keep", "Presentaciones de Google"],
+    answer: 3,
+    explanation: "Presentaciones de Google permite crear diapositivas."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué ocurre normalmente al mover un archivo a la papelera de Google Drive?",
+    options: [
+        "Se publica en internet",
+        "Se marca para eliminación y puede recuperarse antes de eliminarse definitivamente",
+        "Se convierte en una hoja de cálculo",
+        "Se envía automáticamente por correo"
+    ],
+    answer: 1,
+    explanation: "Los archivos en la papelera pueden restaurarse mientras sigan disponibles allí."
+},
+{
+    category: "Google Workspace",
+    question: "¿Qué debes revisar antes de compartir un archivo con un grupo?",
+    options: [
+        "El color de la pantalla",
+        "La marca del computador",
+        "Los permisos y las personas que tendrán acceso",
+        "El volumen de los parlantes"
+    ],
+    answer: 2,
+    explanation: "Revisar los permisos ayuda a evitar que personas no autorizadas vean o editen información."
+},
+
+{
+    category: "Microsoft Word",
+    question: "¿Para qué se utiliza principalmente Microsoft Word?",
+    options: ["Crear documentos de texto", "Diseñar circuitos", "Administrar redes", "Reproducir música"],
+    answer: 0,
+    explanation: "Word es un procesador de texto."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué opción permite cambiar la apariencia de las letras?",
+    options: ["Zoom del navegador", "Orientación del mouse", "Tipo y tamaño de fuente", "Configuración del sonido"],
+    answer: 2,
+    explanation: "Las opciones de fuente permiten modificar el tipo, tamaño y estilo de las letras."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué alineación coloca el texto centrado entre los márgenes?",
+    options: ["Justificada", "Centrada", "A la izquierda", "A la derecha"],
+    answer: 1,
+    explanation: "La alineación centrada distribuye el texto alrededor del centro."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué elemento aparece normalmente al final de una página y puede contener numeración?",
+    options: ["Barra de tareas", "Puntero", "Papelera", "Pie de página"],
+    answer: 3,
+    explanation: "El pie de página puede contener números de página, fechas u otra información."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué herramienta revisa posibles errores ortográficos?",
+    options: ["Corrector ortográfico", "Administrador de tareas", "Explorador de archivos", "Calculadora"],
+    answer: 0,
+    explanation: "El corrector ortográfico identifica posibles errores de escritura."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Para qué sirve insertar una tabla en Word?",
+    options: [
+        "Aumentar la señal Wi-Fi",
+        "Apagar el equipo",
+        "Organizar información en filas y columnas",
+        "Cambiar la contraseña del correo"
+    ],
+    answer: 2,
+    explanation: "Las tablas organizan información de manera estructurada."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué opción permite colocar una página horizontalmente?",
+    options: ["Color de fuente", "Orientación horizontal", "Interlineado", "Sangría"],
+    answer: 1,
+    explanation: "La orientación horizontal coloca el lado más largo de la página en sentido horizontal."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué significa aplicar negrita a una palabra?",
+    options: [
+        "Cambiarla a otro idioma",
+        "Eliminarla",
+        "Convertirla en imagen",
+        "Resaltar su grosor visual"
+    ],
+    answer: 3,
+    explanation: "La negrita destaca visualmente palabras o fragmentos."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué función cumple la opción Buscar dentro de un documento?",
+    options: [
+        "Localizar palabras o frases",
+        "Apagar el computador",
+        "Crear una cuenta de correo",
+        "Cambiar la resolución del monitor"
+    ],
+    answer: 0,
+    explanation: "Buscar permite localizar texto dentro del documento."
+},
+{
+    category: "Microsoft Word",
+    question: "¿Qué formato es común para compartir un documento conservando su apariencia?",
+    options: [".mp3", ".exe", ".pdf", ".jpg"],
+    answer: 2,
+    explanation: "PDF es un formato común para compartir documentos conservando su presentación."
+},
+
+{
+    category: "PowerPoint",
+    question: "¿Para qué se utiliza Microsoft PowerPoint?",
+    options: ["Crear presentaciones con diapositivas", "Reparar el teclado", "Administrar contraseñas", "Limpiar el monitor"],
+    answer: 0,
+    explanation: "PowerPoint permite crear presentaciones visuales mediante diapositivas."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué es una diapositiva?",
+    options: [
+        "Una pieza del procesador",
+        "Un tipo de cable",
+        "Una página o pantalla de una presentación",
+        "Una carpeta del sistema operativo"
+    ],
+    answer: 2,
+    explanation: "Cada diapositiva es una unidad de contenido de una presentación."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué recurso ayuda a mantener un diseño uniforme entre diapositivas?",
+    options: ["Papelera de reciclaje", "Tema o plantilla", "Antivirus", "Historial del navegador"],
+    answer: 1,
+    explanation: "Los temas y plantillas ofrecen diseños y estilos coherentes."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué elemento permite explicar visualmente una idea mediante datos numéricos?",
+    options: ["Una contraseña", "Un acceso directo", "Un archivo temporal", "Un gráfico"],
+    answer: 3,
+    explanation: "Los gráficos facilitan la comprensión visual de los datos."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué se recomienda para que una presentación sea fácil de leer?",
+    options: [
+        "Usar texto claro y evitar saturar las diapositivas",
+        "Escribir párrafos enormes en cada diapositiva",
+        "Usar letras muy pequeñas",
+        "Usar muchos colores sin criterio"
+    ],
+    answer: 0,
+    explanation: "Un diseño sencillo y legible facilita la comprensión."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué es una transición en PowerPoint?",
+    options: [
+        "Una contraseña de usuario",
+        "Una tabla de Excel",
+        "Un efecto visual al pasar de una diapositiva a otra",
+        "Una herramienta para borrar archivos"
+    ],
+    answer: 2,
+    explanation: "Las transiciones controlan el efecto visual entre diapositivas."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué diferencia hay entre una transición y una animación?",
+    options: [
+        "Son exactamente lo mismo",
+        "La transición afecta el paso entre diapositivas; la animación afecta objetos",
+        "La animación solo cambia la contraseña",
+        "La transición solo funciona en Word"
+    ],
+    answer: 1,
+    explanation: "Las transiciones actúan entre diapositivas; las animaciones afectan elementos dentro de ellas."
+},
+{
+    category: "PowerPoint",
+    question: "¿Qué se debe comprobar antes de exponer una presentación?",
+    options: [
+        "Solo el fondo del escritorio",
+        "Únicamente el volumen del computador",
+        "El nombre del fabricante del monitor",
+        "La ortografía, el orden y el funcionamiento de los recursos"
+    ],
+    answer: 3,
+    explanation: "Una revisión previa ayuda a detectar errores y problemas técnicos."
+},
+{
+    category: "PowerPoint",
+    question: "¿Cuál es una buena práctica al utilizar imágenes en una presentación académica?",
+    options: [
+        "Usar imágenes pertinentes y respetar los derechos de autor",
+        "Usar cualquier imagen sin revisar su origen",
+        "Ocultar toda referencia",
+        "Usar imágenes que no se relacionen con el tema"
+    ],
+    answer: 0,
+    explanation: "Las imágenes deben apoyar el contenido y utilizarse respetando sus licencias."
+},
+{
+    category: "PowerPoint",
+    question: "¿Para qué sirven las notas del presentador?",
+    options: [
+        "Para eliminar diapositivas",
+        "Para reemplazar el archivo",
+        "Para guardar recordatorios que ayuden durante la exposición",
+        "Para cambiar la contraseña del sistema"
+    ],
+    answer: 2,
+    explanation: "Las notas ayudan al expositor a recordar puntos clave."
+},
+
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se utiliza normalmente para copiar un elemento seleccionado en Windows?",
+    options: ["Ctrl + C", "Ctrl + V", "Ctrl + Z", "Ctrl + P"],
+    answer: 0,
+    explanation: "Ctrl + C copia el contenido seleccionado."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se utiliza normalmente para pegar contenido?",
+    options: ["Ctrl + X", "Ctrl + V", "Ctrl + S", "Ctrl + A"],
+    answer: 1,
+    explanation: "Ctrl + V pega el contenido copiado o cortado."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación permite deshacer la última acción en muchas aplicaciones?",
+    options: ["Ctrl + P", "Ctrl + F", "Ctrl + Z", "Ctrl + N"],
+    answer: 2,
+    explanation: "Ctrl + Z deshace la última acción en muchas aplicaciones."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación permite seleccionar todo el contenido en muchas aplicaciones?",
+    options: ["Alt + F4", "Ctrl + P", "Ctrl + X", "Ctrl + A"],
+    answer: 3,
+    explanation: "Ctrl + A selecciona todo el contenido en muchas aplicaciones."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se utiliza habitualmente para guardar un archivo?",
+    options: ["Ctrl + S", "Ctrl + D", "Ctrl + W", "Ctrl + E"],
+    answer: 0,
+    explanation: "Ctrl + S abre o ejecuta la acción de guardar en muchas aplicaciones."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación permite buscar texto en muchos programas?",
+    options: ["Ctrl + B", "Ctrl + F", "Ctrl + R", "Ctrl + T"],
+    answer: 1,
+    explanation: "Ctrl + F abre la función de búsqueda en numerosas aplicaciones."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación suele imprimir un documento?",
+    options: ["Ctrl + I", "Ctrl + U", "Ctrl + P", "Ctrl + L"],
+    answer: 2,
+    explanation: "Ctrl + P abre normalmente el cuadro de impresión."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se utiliza normalmente para cortar un elemento seleccionado?",
+    options: ["Ctrl + C", "Ctrl + V", "Ctrl + Y", "Ctrl + X"],
+    answer: 3,
+    explanation: "Ctrl + X corta el contenido seleccionado."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué suele ocurrir al presionar Alt + Tab en Windows?",
+    options: [
+        "Se cambia entre ventanas abiertas",
+        "Se apaga el monitor",
+        "Se elimina un archivo permanentemente",
+        "Se imprime una página"
+    ],
+    answer: 0,
+    explanation: "Alt + Tab permite cambiar entre ventanas abiertas."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué hace normalmente Ctrl + Y?",
+    options: [
+        "Abre la calculadora",
+        "Rehace una acción deshecha o repite una acción, según la aplicación",
+        "Cierra siempre Windows",
+        "Borra todos los documentos"
+    ],
+    answer: 1,
+    explanation: "Ctrl + Y suele rehacer una acción, aunque su comportamiento depende del programa."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué tecla suele borrar el carácter situado a la izquierda del cursor?",
+    options: ["Esc", "Shift", "Retroceso (Backspace)", "Tab"],
+    answer: 2,
+    explanation: "Retroceso borra normalmente el carácter situado a la izquierda del cursor."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué tecla suele abrir el menú Inicio de Windows?",
+    options: ["F1", "Bloq Mayús", "Insert", "Tecla Windows"],
+    answer: 3,
+    explanation: "La tecla Windows permite abrir el menú Inicio."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se utiliza habitualmente para cerrar la ventana activa en Windows?",
+    options: ["Alt + F4", "Ctrl + C", "Ctrl + V", "Shift + Enter"],
+    answer: 0,
+    explanation: "Alt + F4 cierra la ventana activa en Windows."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación suele abrir una nueva pestaña en un navegador?",
+    options: ["Ctrl + P", "Ctrl + T", "Ctrl + Z", "Alt + F4"],
+    answer: 1,
+    explanation: "Ctrl + T abre normalmente una pestaña nueva."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué tecla suele actualizar o recargar una página web en Windows?",
+    options: ["F2", "F5", "F8", "F12"],
+    answer: 1,
+    explanation: "F5 suele recargar la página web activa."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación suele abrir una ventana para guardar un archivo con otro nombre?",
+    options: ["Ctrl + F", "Ctrl + A", "Ctrl + Shift + S", "Alt + Tab"],
+    answer: 2,
+    explanation: "Ctrl + Shift + S suele abrir Guardar como en muchas aplicaciones."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué tecla se utiliza habitualmente para confirmar una opción o iniciar una nueva línea?",
+    options: ["Esc", "Tab", "Ctrl", "Enter"],
+    answer: 3,
+    explanation: "Enter confirma acciones o inserta una nueva línea, según el contexto."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Para qué se utiliza la tecla Esc en muchas aplicaciones?",
+    options: [
+        "Cancelar una operación o cerrar un menú emergente",
+        "Guardar todos los archivos",
+        "Copiar texto",
+        "Subir el volumen siempre"
+    ],
+    answer: 0,
+    explanation: "Esc suele cancelar una operación o cerrar un menú o cuadro emergente."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué hace normalmente Ctrl + B en un documento de Word en español?",
+    options: [
+        "Cierra el documento",
+        "Abre la búsqueda",
+        "Activa la negrita en muchas versiones en español",
+        "Elimina el documento"
+    ],
+    answer: 2,
+    explanation: "En muchas versiones de Word en español, Ctrl + B activa la negrita. Los atajos pueden variar según el idioma y la aplicación."
+},
+{
+    category: "Atajos de teclado",
+    question: "¿Qué combinación se usa normalmente para abrir el Explorador de archivos en Windows?",
+    options: ["Ctrl + P", "Windows + E", "Alt + F4", "Ctrl + X"],
+    answer: 1,
+    explanation: "Windows + E abre el Explorador de archivos."
+},
+
+{
+    category: "Internet",
+    question: "¿Qué es un navegador web?",
+    options: [
+        "Un componente físico de la CPU",
+        "Un tipo de impresora",
+        "Un programa para acceder y visualizar sitios web",
+        "Un sistema de refrigeración"
+    ],
+    answer: 2,
+    explanation: "Los navegadores permiten visitar sitios web y utilizar servicios de internet."
+},
+{
+    category: "Internet",
+    question: "¿Cuál de los siguientes es un navegador web?",
+    options: ["Google Chrome", "Microsoft Excel", "Calculadora", "Bloc de notas"],
+    answer: 0,
+    explanation: "Google Chrome es un navegador web."
+},
+{
+    category: "Internet",
+    question: "¿Qué es un motor de búsqueda?",
+    options: [
+        "Un dispositivo de almacenamiento",
+        "Un tipo de teclado",
+        "Un cable de red",
+        "Un servicio que ayuda a encontrar información en internet"
+    ],
+    answer: 3,
+    explanation: "Los motores de búsqueda permiten localizar páginas y contenidos web."
+},
+{
+    category: "Internet",
+    question: "¿Qué indica normalmente HTTPS al inicio de una dirección web?",
+    options: [
+        "Que el sitio siempre es confiable",
+        "Que la conexión utiliza cifrado entre el navegador y el sitio",
+        "Que no se necesita internet",
+        "Que el sitio no puede contener riesgos"
+    ],
+    answer: 1,
+    explanation: "HTTPS protege la conexión, pero no garantiza por sí solo que el sitio sea legítimo."
+},
+{
+    category: "Internet",
+    question: "¿Qué es la nube en informática?",
+    options: [
+        "Un tipo de monitor",
+        "Una carpeta que solo existe en el teclado",
+        "Servicios y recursos accesibles a través de internet",
+        "Una herramienta para limpiar la pantalla"
+    ],
+    answer: 2,
+    explanation: "La nube permite utilizar almacenamiento y otros servicios mediante internet."
+},
+{
+    category: "Internet",
+    question: "¿Qué significa descargar un archivo?",
+    options: [
+        "Transferirlo desde un servicio remoto a tu dispositivo",
+        "Borrarlo de internet",
+        "Cambiarle automáticamente el nombre",
+        "Imprimirlo"
+    ],
+    answer: 0,
+    explanation: "Descargar consiste en transferir datos a tu dispositivo."
+},
+{
+    category: "Internet",
+    question: "¿Qué significa subir un archivo a la nube?",
+    options: [
+        "Apagar el computador",
+        "Borrarlo de la carpeta",
+        "Cambiar el idioma del equipo",
+        "Transferirlo desde tu dispositivo a un servicio en línea"
+    ],
+    answer: 3,
+    explanation: "Subir o cargar un archivo envía el archivo a un servicio en línea."
+},
+{
+    category: "Internet",
+    question: "¿Qué es una dirección URL?",
+    options: [
+        "Un tipo de memoria RAM",
+        "La dirección de un recurso en internet",
+        "Una tecla especial",
+        "Una marca de computador"
+    ],
+    answer: 1,
+    explanation: "Una URL identifica la ubicación de un recurso, como una página web."
+},
+{
+    category: "Internet",
+    question: "¿Qué deberías hacer si una página te pide datos personales sin una razón clara?",
+    options: [
+        "Entregar todos los datos",
+        "Usar la misma contraseña de todas tus cuentas",
+        "Verificar la legitimidad del sitio y evitar compartir datos innecesarios",
+        "Desactivar todas las medidas de seguridad"
+    ],
+    answer: 2,
+    explanation: "Verificar el sitio y limitar los datos compartidos ayuda a proteger tu privacidad."
+},
+{
+    category: "Internet",
+    question: "¿Qué es una videoconferencia?",
+    options: [
+        "Una comunicación en tiempo real con audio y video a distancia",
+        "Un archivo de texto",
+        "Una pieza interna del computador",
+        "Una hoja de cálculo"
+    ],
+    answer: 0,
+    explanation: "La videoconferencia permite que personas en diferentes lugares se comuniquen con audio y video."
+},
+
+{
+    category: "Seguridad digital",
+    question: "¿Cuál es una característica de una contraseña segura?",
+    options: [
+        "Es siempre 123456",
+        "Es igual al nombre de usuario",
+        "Se comparte con todos los compañeros",
+        "Es larga, única y difícil de adivinar"
+    ],
+    answer: 3,
+    explanation: "Las contraseñas largas y únicas reducen el riesgo de acceso no autorizado."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué es el phishing?",
+    options: [
+        "Una herramienta para editar fotografías",
+        "Un intento de engaño para robar información o credenciales",
+        "Una función para imprimir",
+        "Un tipo de memoria"
+    ],
+    answer: 1,
+    explanation: "El phishing utiliza mensajes o sitios engañosos para obtener información sensible."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué deberías hacer si recibes un enlace sospechoso por correo?",
+    options: [
+        "Abrirlo inmediatamente",
+        "Compartirlo con todos",
+        "Verificar al remitente y no abrirlo si no es confiable",
+        "Ingresar tus contraseñas para comprobarlo"
+    ],
+    answer: 2,
+    explanation: "Los enlaces sospechosos pueden conducir a sitios fraudulentos o descargas maliciosas."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Para qué sirve un antivirus?",
+    options: [
+        "Detectar, bloquear o ayudar a eliminar software malicioso",
+        "Aumentar el tamaño físico del monitor",
+        "Crear presentaciones",
+        "Reemplazar todas las contraseñas automáticamente"
+    ],
+    answer: 0,
+    explanation: "Un antivirus ayuda a detectar y tratar amenazas informáticas."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Por qué es importante actualizar los programas?",
+    options: [
+        "Para borrar todos los documentos",
+        "Para impedir el uso de internet",
+        "Para cambiar físicamente el teclado",
+        "Para corregir errores y, a menudo, vulnerabilidades de seguridad"
+    ],
+    answer: 3,
+    explanation: "Las actualizaciones suelen corregir fallos y vulnerabilidades."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué es la autenticación de dos factores?",
+    options: [
+        "Usar dos nombres en el correo",
+        "Agregar una segunda comprobación de identidad al iniciar sesión",
+        "Compartir una contraseña entre dos personas",
+        "Abrir dos navegadores"
+    ],
+    answer: 1,
+    explanation: "El segundo factor añade una capa de protección además de la contraseña."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué es una copia de seguridad?",
+    options: [
+        "Una copia de un virus",
+        "Una contraseña temporal",
+        "Una copia de datos para recuperarlos si se pierden o dañan",
+        "Un tipo de monitor"
+    ],
+    answer: 2,
+    explanation: "Las copias de seguridad ayudan a recuperar archivos ante pérdidas o fallos."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué práctica ayuda a proteger tus archivos importantes?",
+    options: [
+        "Realizar copias de seguridad periódicas",
+        "Guardar todo en un único dispositivo sin respaldo",
+        "Compartir la contraseña públicamente",
+        "Ignorar las advertencias de seguridad"
+    ],
+    answer: 0,
+    explanation: "Los respaldos periódicos reducen el riesgo de perder información."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué deberías hacer antes de utilizar una memoria USB desconocida?",
+    options: [
+        "Ejecutar todos los archivos",
+        "Desactivar el antivirus",
+        "Compartir sus archivos automáticamente",
+        "Evitar usarla si no es confiable y analizarla con herramientas de seguridad"
+    ],
+    answer: 3,
+    explanation: "Los dispositivos desconocidos pueden contener archivos maliciosos."
+},
+{
+    category: "Seguridad digital",
+    question: "¿Qué es la privacidad digital?",
+    options: [
+        "Tener muchos archivos",
+        "Controlar cómo se recopila, utiliza y comparte tu información personal",
+        "Usar únicamente computadores nuevos",
+        "Publicar todas tus contraseñas"
+    ],
+    answer: 1,
+    explanation: "La privacidad digital trata del control y la protección de la información personal."
+},
+
+{
+    category: "Archivos y sistema",
+    question: "¿Qué es una carpeta en un computador?",
+    options: [
+        "Un dispositivo físico",
+        "Un programa para videollamadas",
+        "Un contenedor para organizar archivos y otras carpetas",
+        "Una contraseña"
+    ],
+    answer: 2,
+    explanation: "Las carpetas ayudan a organizar documentos y otros archivos."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué extensión suele tener un documento de Microsoft Word moderno?",
+    options: [".docx", ".mp3", ".png", ".exe"],
+    answer: 0,
+    explanation: ".docx es la extensión habitual de los documentos modernos de Word."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué extensión suele identificar un archivo de imagen PNG?",
+    options: [".xlsx", ".pptx", ".txt", ".png"],
+    answer: 3,
+    explanation: ".png identifica archivos de imagen en formato PNG."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué es comprimir un archivo o carpeta?",
+    options: [
+        "Convertirlo siempre en una fotografía",
+        "Reducir su tamaño o agrupar archivos en un formato comprimido",
+        "Eliminar su contenido",
+        "Cambiar la contraseña del equipo"
+    ],
+    answer: 1,
+    explanation: "La compresión puede reducir el tamaño y facilitar el envío de varios archivos."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué función cumple la papelera de reciclaje de Windows?",
+    options: [
+        "Crear cuentas de usuario",
+        "Mejorar la señal Wi-Fi",
+        "Guardar temporalmente archivos eliminados para permitir su recuperación",
+        "Instalar programas automáticamente"
+    ],
+    answer: 2,
+    explanation: "La papelera permite recuperar archivos eliminados mientras sigan disponibles allí."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué es un archivo PDF?",
+    options: [
+        "Un formato de documento que conserva generalmente su presentación",
+        "Un componente del procesador",
+        "Una tecla del teclado",
+        "Un tipo de conexión inalámbrica"
+    ],
+    answer: 0,
+    explanation: "PDF es un formato diseñado para compartir documentos de forma consistente."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué significa renombrar un archivo?",
+    options: [
+        "Eliminarlo",
+        "Enviar el archivo por correo",
+        "Duplicar la memoria RAM",
+        "Cambiar su nombre"
+    ],
+    answer: 3,
+    explanation: "Renombrar consiste en modificar el nombre del archivo."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué es un programa o aplicación informática?",
+    options: [
+        "Una pieza de plástico",
+        "Un conjunto de instrucciones que permite realizar tareas",
+        "Un cable de alimentación",
+        "Un tipo de monitor"
+    ],
+    answer: 1,
+    explanation: "Las aplicaciones ejecutan instrucciones para realizar tareas específicas."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué significa instalar un programa?",
+    options: [
+        "Cambiar el brillo de la pantalla",
+        "Borrar todos los archivos",
+        "Preparar el software en el equipo para poder utilizarlo",
+        "Desconectar el teclado"
+    ],
+    answer: 2,
+    explanation: "La instalación prepara los componentes necesarios para utilizar el programa."
+},
+{
+    category: "Archivos y sistema",
+    question: "¿Qué debes hacer antes de eliminar definitivamente un archivo importante?",
+    options: [
+        "Comprobar que ya no lo necesitas y que tienes respaldo si corresponde",
+        "Borrar todos los respaldos",
+        "Compartirlo con desconocidos",
+        "Desactivar el sistema operativo"
+    ],
+    answer: 0,
+    explanation: "Verificar el contenido y contar con respaldo puede evitar pérdidas accidentales."
+},
+
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué significa colaborar en línea?",
+    options: [
+        "Trabajar sin comunicarse",
+        "Eliminar el trabajo de otros",
+        "Compartir contraseñas",
+        "Trabajar conjuntamente mediante herramientas digitales"
+    ],
+    answer: 3,
+    explanation: "La colaboración en línea permite trabajar con otras personas mediante servicios digitales."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué debes hacer al utilizar información de una página web en un trabajo académico?",
+    options: [
+        "Presentarla siempre como propia",
+        "Citar la fuente y respetar los derechos de autor",
+        "Eliminar el nombre del autor",
+        "No revisar la confiabilidad de la fuente"
+    ],
+    answer: 1,
+    explanation: "Citar las fuentes reconoce la autoría y permite verificar la información."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué es la huella digital en internet?",
+    options: [
+        "Una marca física en el teclado",
+        "Un tipo de ratón",
+        "El rastro de información y actividad que dejamos al usar servicios digitales",
+        "Una herramienta de dibujo"
+    ],
+    answer: 2,
+    explanation: "Las publicaciones, interacciones y otros datos pueden formar parte de la huella digital."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Cuál es una conducta adecuada en una clase virtual?",
+    options: [
+        "Respetar a los participantes y mantener una comunicación apropiada",
+        "Interrumpir continuamente",
+        "Publicar datos privados de otros",
+        "Compartir enlaces maliciosos"
+    ],
+    answer: 0,
+    explanation: "El respeto y la comunicación adecuada también son importantes en entornos virtuales."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué debes considerar antes de publicar una fotografía de otra persona?",
+    options: [
+        "Solo el tamaño del archivo",
+        "La marca del teléfono",
+        "El color de la fotografía",
+        "Su consentimiento y las implicaciones para su privacidad"
+    ],
+    answer: 3,
+    explanation: "Publicar imágenes de otras personas puede afectar su privacidad y requiere consideración."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Cómo puedes reconocer mejor una fuente de información confiable?",
+    options: [
+        "Creer todo lo que aparece en redes sociales",
+        "Revisar el autor, la fecha, las evidencias y otras fuentes confiables",
+        "Elegir siempre el primer resultado",
+        "Evitar comparar información"
+    ],
+    answer: 1,
+    explanation: "Contrastar fuentes y revisar evidencias ayuda a evaluar la calidad de la información."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué significa la sigla TIC?",
+    options: [
+        "Técnicas Internas de Cálculo",
+        "Tarjeta Informática Central",
+        "Tecnologías de la Información y las Comunicaciones",
+        "Transmisión Interna de Carpetas"
+    ],
+    answer: 2,
+    explanation: "TIC significa Tecnologías de la Información y las Comunicaciones."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Cuál es un ejemplo de comunicación digital sincrónica?",
+    options: [
+        "Una videollamada en tiempo real",
+        "Un mensaje que se lee varios días después",
+        "Un documento archivado",
+        "Una fotografía guardada en una carpeta"
+    ],
+    answer: 0,
+    explanation: "La comunicación sincrónica ocurre en tiempo real, como una videollamada."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Cuál es un ejemplo de comunicación digital asincrónica?",
+    options: [
+        "Una conversación presencial",
+        "Una videollamada en vivo",
+        "Una llamada telefónica en directo",
+        "Un correo electrónico que se responde posteriormente"
+    ],
+    answer: 3,
+    explanation: "El correo electrónico permite enviar y responder mensajes en momentos distintos."
+},
+{
+    category: "Ciudadanía digital",
+    question: "¿Qué debes hacer si recibes información alarmante y no sabes si es verdadera?",
+    options: [
+        "Compartirla de inmediato",
+        "Verificarla en fuentes confiables antes de difundirla",
+        "Cambiarle el título para hacerla viral",
+        "Asumir que es verdadera porque tiene una imagen"
+    ],
+    answer: 1,
+    explanation: "Verificar antes de compartir ayuda a reducir la difusión de información falsa."
+}
+
+];
+
+// ======================================================
+// 3. ESTADO DE LA PARTIDA
+// ======================================================
+
+let remainingQuestions = [];
+let currentStudent = null;
+let currentQuestion = null;
+let lastStudent = null;
+let isSpinning = false;
+let questionInProgress = false;
+let questionCounter = 0;
+
+let stats = {};
+let history = [];
+
+function initializeGame() {
+    stats = {};
+
+    students.forEach(name => {
+        stats[name] = {
+            questions: 0,
+            correct: 0,
+            incorrect: 0,
+            unanswered: 0,
+            points: 0
+        };
+    });
+
+    remainingQuestions = questionBank.map((question, index) => ({
+        ...question,
+        originalIndex: index
+    }));
+
+    shuffleArray(remainingQuestions);
+
+    currentStudent = null;
+    currentQuestion = null;
+    lastStudent = null;
+    isSpinning = false;
+    questionInProgress = false;
+    questionCounter = 0;
+    history = [];
+
+    document.getElementById("selectedName").textContent = "¿QUIÉN JUGARÁ?";
+    document.getElementById("rouletteMessage").textContent = "¡Prepárate para el desafío!";
+    document.getElementById("questionContent").classList.add("hidden");
+    document.getElementById("emptyQuestion").classList.remove("hidden");
+    document.getElementById("spinButton").disabled = false;
+
+    updateDashboard();
+    renderSummary();
+    renderHistory();
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function randomStudent() {
+    let candidates = students.filter(name => name !== lastStudent);
+
+    if (candidates.length === 0) {
+        candidates = [...students];
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
+// ======================================================
+// 4. RULETA
+// ======================================================
+
+function spinRoulette() {
+    if (isSpinning || questionInProgress) return;
+
+    if (remainingQuestions.length === 0) {
+        alert("¡Se acabaron las preguntas disponibles! Exporta los reportes o reinicia la partida.");
+        updateDashboard();
+        return;
+    }
+
+    isSpinning = true;
+    document.getElementById("spinButton").disabled = true;
+
+    const nameDisplay = document.getElementById("selectedName");
+    const message = document.getElementById("rouletteMessage");
+
+    let iterations = 0;
+    const totalIterations = 24 + Math.floor(Math.random() * 10);
+    let delay = 45;
+
+    function animate() {
+        const tempName = students[Math.floor(Math.random() * students.length)];
+        nameDisplay.textContent = tempName;
+        nameDisplay.style.color = iterations % 2 === 0 ? "#35e8ff" : "#b28aff";
+
+        iterations++;
+
+        if (iterations < totalIterations) {
+            delay += 7;
+            setTimeout(animate, delay);
+        } else {
+            currentStudent = randomStudent();
+            lastStudent = currentStudent;
+
+            currentQuestion = remainingQuestions.pop();
+
+            nameDisplay.textContent = currentStudent;
+            nameDisplay.style.color = "#35e69a";
+            message.textContent = "¡Es tu turno! Responde la pregunta.";
+
+            isSpinning = false;
+            questionInProgress = true;
+
+            showQuestion();
+            updateDashboard();
+        }
+    }
+
+    animate();
+}
+
+// ======================================================
+// 5. MOSTRAR PREGUNTA Y RESPUESTA
+// ======================================================
+
+function showQuestion() {
+    if (!currentQuestion || !currentStudent) return;
+
+    document.getElementById("emptyQuestion").classList.add("hidden");
+    document.getElementById("questionContent").classList.remove("hidden");
+
+    document.getElementById("categoryTag").textContent = currentQuestion.category;
+    document.getElementById("questionNumber").textContent =
+        "Pregunta de la partida: " + (questionCounter + 1);
+
+    document.getElementById("questionText").textContent = currentQuestion.question;
+
+    const optionsContainer = document.getElementById("optionsContainer");
+    optionsContainer.innerHTML = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "option";
+        button.textContent = String.fromCharCode(65 + index) + ". " + option;
+        button.type = "button";
+        button.onclick = () => selectOption(index);
+        button.dataset.index = index;
+        optionsContainer.appendChild(button);
+    });
+
+    const answerBox = document.getElementById("answerBox");
+    answerBox.style.display = "none";
+    answerBox.textContent = "";
+
+    document.querySelectorAll("#gradingActions button").forEach(button => {
+        button.disabled = false;
+    });
+    document.getElementById("gradingActions").classList.remove("hidden");
+}
+
+function toggleAnswer() {
+    if (!currentQuestion || !questionInProgress) return;
+
+    const box = document.getElementById("answerBox");
+
+    if (box.style.display === "block") {
+        box.style.display = "none";
+        return;
+    }
+
+    box.innerHTML = "";
+
+    const title = document.createElement("strong");
+    title.textContent = "Respuesta correcta: ";
+    box.appendChild(title);
+
+    box.appendChild(document.createTextNode(
+        currentQuestion.options[currentQuestion.answer]
+    ));
+
+    const explanation = document.createElement("p");
+    explanation.textContent = currentQuestion.explanation;
+    box.appendChild(explanation);
+
+    box.style.display = "block";
+
+    document.querySelectorAll(".option").forEach(button => {
+        const index = Number(button.dataset.index);
+        button.classList.toggle("correct", index === currentQuestion.answer);
+    });
+}
+
+
+function selectOption(index) {
+    if (!currentQuestion || !questionInProgress) return;
+
+    // Evitar que se registre dos veces la misma respuesta
+    if (!questionInProgress) return;
+
+    const isCorrect = index === currentQuestion.answer;
+
+    // Mostrar visualmente la respuesta correcta y la seleccionada
+    document.querySelectorAll(".option").forEach(button => {
+        const optionIndex = Number(button.dataset.index);
+
+        button.classList.remove("correct", "wrong");
+
+        if (optionIndex === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (optionIndex === index) {
+            button.classList.add("wrong");
+        }
+
+        button.disabled = true;
+    });
+
+    // Mostrar explicación
+    const box = document.getElementById("answerBox");
+    box.innerHTML = "";
+
+    const title = document.createElement("strong");
+    title.textContent = isCorrect
+        ? "✅ ¡RESPUESTA CORRECTA! +10 PUNTOS"
+        : "❌ RESPUESTA INCORRECTA. 0 PUNTOS";
+
+    title.style.color = isCorrect ? "#35e69a" : "#ff5470";
+    box.appendChild(title);
+
+    const answer = document.createElement("p");
+    answer.textContent =
+        "Respuesta correcta: " +
+        currentQuestion.options[currentQuestion.answer];
+    box.appendChild(answer);
+
+    const explanation = document.createElement("p");
+    explanation.textContent = currentQuestion.explanation;
+    box.appendChild(explanation);
+
+    box.style.display = "block";
+
+    // Calificar automáticamente, sin pulsar otro botón
+    gradeAnswer(isCorrect ? "correcta" : "incorrecta");
+
+    // Actualizar el mensaje de la ruleta
+    document.getElementById("rouletteMessage").textContent = isCorrect
+        ? "🎉 ¡Correcto! Se sumaron 10 puntos a " + currentStudent + "."
+        : "💥 Incorrecto. No se sumaron puntos.";
+
+    // Ocultar los botones de calificación manual
+    document.getElementById("gradingActions").classList.add("hidden");
+}
+
+
+// ======================================================
+// 6. CALIFICAR RESPUESTAS
+// ======================================================
+
+function gradeAnswer(result) {
+    if (!questionInProgress || !currentStudent || !currentQuestion) return;
+
+    const resultLabels = {
+        "correcta": "Correcta",
+        "incorrecta": "Incorrecta",
+        "no respondio": "No respondió"
+    };
+
+    const resultMessages = {
+        "correcta": "¡Excelente! Sumaste 10 puntos.",
+        "incorrecta": "Respuesta incorrecta. Esta pregunta vale 0 puntos.",
+        "no respondio": "Pregunta sin responder. Esta pregunta vale 0 puntos."
+    };
+
+    const studentStats = stats[currentStudent];
+
+    studentStats.questions++;
+
+    let points = 0;
+
+    if (result === "correcta") {
+        studentStats.correct++;
+        studentStats.points += 10;
+        points = 10;
+    } else if (result === "incorrecta") {
+        studentStats.incorrect++;
+    } else {
+        studentStats.unanswered++;
+    }
+
+    questionCounter++;
+
+    history.push({
+        number: questionCounter,
+        student: currentStudent,
+        category: currentQuestion.category,
+        question: currentQuestion.question,
+        options: currentQuestion.options,
+        correctAnswer: currentQuestion.options[currentQuestion.answer],
+        explanation: currentQuestion.explanation,
+        result: resultLabels[result],
+        points: points
+    });
+
+    document.getElementById("rouletteMessage").textContent = resultMessages[result];
+
+    questionInProgress = false;
+
+    document.querySelectorAll("#gradingActions button").forEach(button => {
+        button.disabled = true;
+    });
+
+    document.getElementById("spinButton").disabled = remainingQuestions.length === 0;
+
+    updateDashboard();
+    renderSummary();
+    renderHistory();
+
+    if (remainingQuestions.length === 0) {
+        document.getElementById("rouletteMessage").textContent +=
+            " ¡Se agotó el banco de preguntas!";
+    }
+
+    currentStudent = null;
+    currentQuestion = null;
+}
+
+// ======================================================
+// 7. TABLERO Y REPORTES EN PANTALLA
+// ======================================================
+
+function updateDashboard() {
+    document.getElementById("totalStudents").textContent = students.length;
+    document.getElementById("questionsRemaining").textContent = remainingQuestions.length;
+    document.getElementById("questionsAsked").textContent = questionCounter;
+
+    const points = Object.values(stats).reduce((sum, item) => sum + item.points, 0);
+    document.getElementById("totalPoints").textContent = points;
+
+    if (remainingQuestions.length === 0 && !questionInProgress) {
+        document.getElementById("spinButton").disabled = true;
+    }
+}
+
+function getSummary() {
+    return students.map(name => {
+        const item = stats[name];
+        const percentage = item.questions
+            ? (item.correct / item.questions) * 100
+            : 0;
+
+        return {
+            student: name,
+            questions: item.questions,
+            correct: item.correct,
+            incorrect: item.incorrect,
+            unanswered: item.unanswered,
+            points: item.points,
+            percentage: percentage
+        };
+    }).sort((a, b) =>
+        b.points - a.points ||
+        b.correct - a.correct ||
+        a.student.localeCompare(b.student, "es")
+    );
+}
+
+function renderSummary() {
+    const tbody = document.getElementById("summaryBody");
+    tbody.innerHTML = "";
+
+    getSummary().forEach((item, index) => {
+        const tr = document.createElement("tr");
+
+        const values = [
+            index + 1,
+            item.student,
+            item.questions,
+            item.correct,
+            item.incorrect,
+            item.unanswered,
+            item.points,
+            item.percentage.toFixed(1) + "%"
+        ];
+
+        values.forEach((value, cellIndex) => {
+            const td = document.createElement("td");
+            td.textContent = value;
+
+            if (cellIndex === 6) {
+                td.style.fontWeight = "900";
+                td.style.color = "#35e8ff";
+            }
+
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+function renderHistory() {
+    const tbody = document.getElementById("historyBody");
+    tbody.innerHTML = "";
+
+    if (history.length === 0) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 6;
+        td.textContent = "Todavía no se han realizado preguntas.";
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+    }
+
+    history.slice().reverse().forEach(item => {
+        const tr = document.createElement("tr");
+
+        [
+            item.number,
+            item.student,
+            item.category,
+            item.question,
+            item.result,
+            item.points
+        ].forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+function showReport() {
+    document.getElementById("reportPanel").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+// ======================================================
+// 8. EXPORTAR ARCHIVOS COMPATIBLES CON EXCEL
+// ======================================================
+
+function csvEscape(value) {
+    const text = String(value ?? "");
+    return '"' + text.replace(/"/g, '""') + '"';
+}
+
+function downloadCSV(filename, rows) {
+    const csv = "\uFEFF" + rows.map(row =>
+        row.map(csvEscape).join(";")
+    ).join("\r\n");
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportSummary() {
+    const rows = [
+        [
+            "Posición",
+            "Estudiante",
+            "Preguntas realizadas",
+            "Respuestas correctas",
+            "Respuestas incorrectas",
+            "No respondió",
+            "Puntaje total",
+            "Porcentaje de acierto"
+        ]
+    ];
+
+    getSummary().forEach((item, index) => {
+        rows.push([
+            index + 1,
+            item.student,
+            item.questions,
+            item.correct,
+            item.incorrect,
+            item.unanswered,
+            item.points,
+            item.percentage.toFixed(2) + "%"
+        ]);
+    });
+
+    downloadCSV("CODE_CHALLENGE_Resumen.csv", rows);
+}
+
+function exportDetails() {
+    const rows = [[
+        "Número de pregunta",
+        "Estudiante",
+        "Categoría",
+        "Pregunta",
+        "Opción A",
+        "Opción B",
+        "Opción C",
+        "Opción D",
+        "Respuesta correcta",
+        "Explicación",
+        "Resultado",
+        "Puntos"
+    ]];
+
+    history.forEach(item => {
+        rows.push([
+            item.number,
+            item.student,
+            item.category,
+            item.question,
+            item.options[0] ?? "",
+            item.options[1] ?? "",
+            item.options[2] ?? "",
+            item.options[3] ?? "",
+            item.correctAnswer,
+            item.explanation,
+            item.result,
+            item.points
+        ]);
+    });
+
+    downloadCSV("CODE_CHALLENGE_Detalle.csv", rows);
+}
+
+function exportBoth() {
+    exportSummary();
+
+    setTimeout(() => {
+        exportDetails();
+    }, 500);
+}
+
+// ======================================================
+// 9. REINICIAR PARTIDA
+// ======================================================
+
+function resetGame() {
+    const confirmed = confirm(
+        "¿Seguro que deseas reiniciar la partida? Se perderán los resultados que no hayas exportado."
+    );
+
+    if (!confirmed) return;
+
+    initializeGame();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// ======================================================
+// 10. INICIAR
+// ======================================================
+
+initializeGame();
+</script>
+</body>
+</html>
